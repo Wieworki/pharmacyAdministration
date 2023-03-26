@@ -104,10 +104,7 @@ Cuenta con:
 Cuenta con:
 
 - Id
-- Id_pedido
-- Id_item
-- Cantidad
-- Observaciones
+- Nombre
 
 ### Medicamento
 Tipo de item. Cuenta con:
@@ -140,6 +137,19 @@ ingrediente principal de un medicamento, responsable del efecto deseado. Cuenta 
 
 ### Productos varios
 Todo lo que no sea un medicamento que administre la farmacia, como leches, pañales, etc. Cuenta con:
+
+- ID
+- Nombre
+
+### Usuario
+
+- ID
+- Nombre
+- Estado
+- Rol
+- Password
+
+### Rol
 
 - ID
 - Nombre
