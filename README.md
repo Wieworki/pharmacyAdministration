@@ -1,8 +1,8 @@
 # Alcance del módulo
 
-El sistema permite la gestión de los pedidos de medicamentos a las farmacias, cubriendo el trayecto desde que se recibe la orden médica que especifíca
-lo que necesita el afiliado, hasta que se le entrega lo que pidió. El proceso implica la generación, auditoría, envío y confirmación de los pedidos.
-También debe ser capaz de llevar un stock de lo que está disponible.
+El sistema permite la gestión de los pedidos de medicamentos que realiza una obra social a las farmacias, cubriendo el trayecto desde que se recibe la orden médica con 
+lo que necesita el afiliado, hasta que se le realiza la entrega. El proceso implica la generación, auditoría, envío y confirmación de los pedidos.
+El sistema también será capaz de llevar un stock de lo que está disponible.
 
 ## Usuarios del sistema
 
@@ -20,26 +20,25 @@ El sistema contará con los siguientes usuarios:
 Encargado de cargar en el sistema lo que recibe está en la orden médica recibida del afiliado. Deberá indicar toda la información pertinente para la auditoría del pedido.
 En el caso de los medicamentos que tengan recupero, deberá recibir un aviso por parte del sistema como recordatorio de la información extra que debe pedir al afiliado.
 También tendrá la posibilidad de actualizar el listado de medicamentos.
+Además, debe poder mantener actualizado el padrón de afiliados a la obra social.
 
 ### Médico auditor
-Encargado de auditar los pedidos de medicamentos, estableciendo el porcentaje de cobertura que le dará la obra social, o pudiendo también rechazarlos.
-Deberá contar con toda la información que pueda llegar a necesitar para evaluar el pedido de forma accesible.
+Encargado de auditar los pedidos de medicamentos. Si aprueba el pedido, indica el porcentaje del valor que cubrirá la obra social. Puede rechazar un pedido, debieno dar un motivo para el rechazo.
 
 ### Contador
-Encargado de hacer el pedido de los medicamentos. También puede auditar los medicamentos, modificando los porcentajes de cobertura que se les aplicarán.
-Debe poder exportar a planilla de cálculo y a PDF los pedidos, para enviarlos a las droguerías.
+Encargado de hacer el pedido de los medicamentos, gestiona los pedidos que hayan sido aprobados para armar las listas que serán enviadas a las farmacias.
+Puede exportar las listas en formato de planilla de cálculo y PDF.
 Es el encargado de especificar la información de dónde se realizaron los pedidos de los medicamentos, actualizando esta información en el pedido, para que el farmacéutico
 sepa de dónde viene, y cuando.
 
 ### Farmacéutico
 Encargado de recepcionar los medicamentos. Debe indicar cuando se recepcionan los mismos, dando por finalizado el ciclo de vida del pedido. 
-Además, debe poder mantener actualizado el stock
+Además, es el encargado de mantener actualizado el stock, indicando además cuando se entregan los medicamentos a los afiliados.
 
 ## Entidades
 
 ### Afiliado
-Persona afiliada a la obra social. La entidad persona del modulo farmacia debe estar vinculadad directa o indirectamente con la entidad persona del modulo de afiliacion. 
-En principio, solamente es necesario contar con los siguientes campos:
+Afiliado que realiza el pedido de medicamentos. La entidad cuenta con los siguientes campos:
 
 - ID
 - Nombre
@@ -47,10 +46,8 @@ En principio, solamente es necesario contar con los siguientes campos:
 - DNI
 - Observaciones
 
-Se debe evaluar si se puede reutilizar la tabla del módulo de afiliación, o crear una tabla específica para este módulo. La complejidad de crear otra tabla, para por el mantenimiento que se le deberá realizar desde el módulo de afiliación, ya que todos los cambios que se realicen en los afiliados deberán verse reflejados en éste módulo también.
-
 ### Pedido farmacia
-Entidad compuesta, contiene el listado de todos los medicamentos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
+Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
 
 - ID
 - Estado
@@ -84,16 +81,16 @@ stateDiagram
 ```
 
 ### Detalle pedido
-Entidad débil, contenida con por el pedido de farmacia. Contiene la información de 1 pedido de medicamento de 1 afliado. Cuenta con:
+Entidad débil, contenida con por el pedido de farmacia. Contiene la información de 1 item pedido de 1 afliado. Cuenta con:
 
 - Id
 - Id_afiliado
 - Detalle
-- Id_medicamento
+- Id_item
 - Cantidad
 
-### Item farmacia
-Entidad central del módulo. Cuenta con:
+### Medicamento
+Tipo de item. Cuenta con:
 
 - ID
 - Principio_activo
@@ -107,5 +104,26 @@ Entidad central del módulo. Cuenta con:
 - Cobertura_oncologica (bool)
 - Tope_anual
 - Tope_mensual
+
+### Principio activo
+Medicamento genérico. Cuenta con:
+
+- ID
+- Principio_activo
+- Presentación
+- Recupero (bool)
+- Cobertura_diabetes (bool)
+- Cobertura_discapacidad (bool)
+- Cobertura_anticonceptiva (bool)
+- Cobertura_70 (bool)
+- Cobertura_oncologica (bool)
+- Tope_anual
+- Tope_mensual
+
+### Productos varios
+Todo lo que no sea un medicamento que administre la farmacia, como leches, pañales, etc. Cuenta con:
+
+- ID
+- Nombre
 
 ## Base de Datos
