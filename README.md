@@ -1,8 +1,8 @@
 # Alcance del módulo
 
-El módulo encargado tiene como objetivo en primer lugar, la gestión de los pedidos de medicamentos a las farmacias, cubriendo el trayecto desde que se recibe la orden médica que especifíca
+El sistema permite la gestión de los pedidos de medicamentos a las farmacias, cubriendo el trayecto desde que se recibe la orden médica que especifíca
 lo que necesita el afiliado, hasta que se le entrega lo que pidió. El proceso implica la generación, auditoría, envío y confirmación de los pedidos.
-También debe ser capaz de llevar un stock de lo que está disponible en la farmacia de la obra social.
+También debe ser capaz de llevar un stock de lo que está disponible.
 
 ## Usuarios del sistema
 
