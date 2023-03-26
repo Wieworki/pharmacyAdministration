@@ -46,13 +46,23 @@ Afiliado que realiza el pedido de medicamentos. La entidad cuenta con los siguie
 - DNI
 - Observaciones
 
+### Sexo
+La entidad cuenta con los siguientes campos:
+
+- ID
+- Denominación
+
 ### Pedido farmacia
 Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
 
 - ID
-- Estado
-- Fecha_creacion
+- Documento_afiliado
+- Nombre_afiliado
+- Fecha_validez
 - Fecha_recepcion
+- Patología
+- Médico
+- Estado
 
 #### Diagrama de flujo de un pedido
 
@@ -61,9 +71,9 @@ Entidad compuesta, contiene el listado de todos los productos y las personas que
 graph LR;
     Creación-->Se_audita;
     Creación-->Se_autoriza_autom;
-    Se_autoriza_autom-->Se_presupuesta;
-    Se_audita-->Se_presupuesta;
-    Se_presupuesta-->Se_envia;
+    Se_autoriza_autom-->Se_envia;
+    Se_audita-->Se_envia;
+    Se_audita-->Se_rechaza;
     Se_envia-->Se_recibe;
 ```
 
@@ -73,29 +83,40 @@ graph LR;
 stateDiagram
     direction LR
     [*] --> Pendiente
-    Pendiente --> Auditable
-    Pendiente --> Por_Presupuestar
-    Auditable --> Por_Presupuestar
-    Por_Presupuestar --> Enviado
+    Pendiente --> Aprobado
+    Pendiente --> Rechazado
+    Aprobado --> Enviado
     Enviado --> Recibido
 ```
 
 ### Detalle pedido
-Entidad débil, contenida con por el pedido de farmacia. Contiene la información de 1 item pedido de 1 afliado. Cuenta con:
+Entidad débil, contenida con por el pedido de farmacia. Contiene la información de 1 item pedido de 1 afliado. 
+Cuenta con:
 
 - Id
-- Id_afiliado
-- Detalle
+- Id_pedido
 - Id_item
 - Cantidad
+- Observaciones
+
+
+### Estado pedido
+Cuenta con:
+
+- Id
+- Id_pedido
+- Id_item
+- Cantidad
+- Observaciones
 
 ### Medicamento
 Tipo de item. Cuenta con:
 
 - ID
-- Principio_activo
-- Presentación
-- Marca
+- Marca: nombre comercial del medicamento
+- Presentación: blister, pastilla, jarabe, etc
+- id_principio_activo
+- id_laboratorio
 - Recupero (bool)
 - Cobertura_diabetes (bool)
 - Cobertura_discapacidad (bool)
@@ -105,20 +126,17 @@ Tipo de item. Cuenta con:
 - Tope_anual
 - Tope_mensual
 
-### Principio activo
-Medicamento genérico. Cuenta con:
+### Laboratorio
+Cuenta con:
 
 - ID
-- Principio_activo
-- Presentación
-- Recupero (bool)
-- Cobertura_diabetes (bool)
-- Cobertura_discapacidad (bool)
-- Cobertura_anticonceptiva (bool)
-- Cobertura_70 (bool)
-- Cobertura_oncologica (bool)
-- Tope_anual
-- Tope_mensual
+- Nombre
+
+### Principio activo
+ingrediente principal de un medicamento, responsable del efecto deseado. Cuenta con:
+
+- ID
+- Nombre
 
 ### Productos varios
 Todo lo que no sea un medicamento que administre la farmacia, como leches, pañales, etc. Cuenta con:
