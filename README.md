@@ -1,66 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Alcance del módulo
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+El sistema permite la gestión de los pedidos de medicamentos que realiza una obra social a las farmacias, cubriendo el trayecto desde que se recibe la orden médica con 
+lo que necesita el afiliado, hasta que se le realiza la entrega. El proceso implica la generación, auditoría, envío y confirmación de los pedidos.
+El sistema también será capaz de llevar un stock de lo que está disponible.
 
-## About Laravel
+## Usuarios del sistema
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+El sistema contará con los siguientes usuarios:
+- Operador de carga
+- Médico auditor
+- Contador
+- Farmacéutico
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Diagrama de casos de uso
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![imagen](https://user-images.githubusercontent.com/45775681/199838366-ebb6d98d-c6b5-4eb2-b9d9-f1e937f318ee.png)
 
-## Learning Laravel
+### Operador de carga
+Encargado de cargar en el sistema lo que recibe está en la orden médica recibida del afiliado. Deberá indicar toda la información pertinente para la auditoría del pedido.
+En el caso de los medicamentos que tengan recupero, deberá recibir un aviso por parte del sistema como recordatorio de la información extra que debe pedir al afiliado.
+También tendrá la posibilidad de actualizar el listado de medicamentos.
+Además, debe poder mantener actualizado el padrón de afiliados a la obra social.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Médico auditor
+Encargado de auditar los pedidos de medicamentos. Si aprueba el pedido, indica el porcentaje del valor que cubrirá la obra social. Puede rechazar un pedido, debieno dar un motivo para el rechazo.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Contador
+Encargado de hacer el pedido de los medicamentos, gestiona los pedidos que hayan sido aprobados para armar las listas que serán enviadas a las farmacias.
+Puede exportar las listas en formato de planilla de cálculo y PDF.
+Es el encargado de especificar la información de dónde se realizaron los pedidos de los medicamentos, actualizando esta información en el pedido, para que el farmacéutico
+sepa de dónde viene, y cuando.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Farmacéutico
+Encargado de recepcionar los medicamentos. Debe indicar cuando se recepcionan los mismos, dando por finalizado el ciclo de vida del pedido. 
+Además, es el encargado de mantener actualizado el stock, indicando además cuando se entregan los medicamentos a los afiliados.
 
-## Laravel Sponsors
+## Entidades
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Afiliado
+Afiliado que realiza el pedido de medicamentos. La entidad cuenta con los siguientes campos:
 
-### Premium Partners
+- ID
+- Nombre
+- Apellido
+- DNI
+- Observaciones
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Sexo
+La entidad cuenta con los siguientes campos:
 
-## Contributing
+- ID
+- Denominación
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Pedido farmacia
+Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
 
-## Code of Conduct
+- ID
+- Documento_afiliado
+- Nombre_afiliado
+- Fecha_validez
+- Fecha_recepcion
+- Patología
+- Médico
+- Estado
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Diagrama de flujo de un pedido
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```mermaid
+graph LR;
+    Creación-->Se_audita;
+    Creación-->Se_autoriza_autom;
+    Se_autoriza_autom-->Se_envia;
+    Se_audita-->Se_envia;
+    Se_audita-->Se_rechaza;
+    Se_envia-->Se_recibe;
+```
 
-## License
+#### Diagrama de estados de un pedido
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```mermaid
+stateDiagram
+    direction LR
+    [*] --> Pendiente
+    Pendiente --> Aprobado
+    Pendiente --> Rechazado
+    Aprobado --> Enviado
+    Enviado --> Recibido
+```
+
+### Detalle pedido
+Entidad débil, contenida con por el pedido de farmacia. Contiene la información de 1 item pedido de 1 afliado. 
+Cuenta con:
+
+- Id
+- Id_pedido
+- Id_item
+- Cantidad
+- Observaciones
+
+
+### Estado pedido
+Cuenta con:
+
+- Id
+- Nombre
+
+### Medicamento
+Tipo de item. Cuenta con:
+
+- ID
+- Marca: nombre comercial del medicamento
+- Presentación: blister, pastilla, jarabe, etc
+- id_principio_activo
+- id_laboratorio
+- Recupero (bool)
+- Cobertura_diabetes (bool)
+- Cobertura_discapacidad (bool)
+- Cobertura_anticonceptiva (bool)
+- Cobertura_70 (bool)
+- Cobertura_oncologica (bool)
+- Tope_anual
+- Tope_mensual
+
+### Laboratorio
+Cuenta con:
+
+- ID
+- Nombre
+
+### Principio activo
+ingrediente principal de un medicamento, responsable del efecto deseado. Cuenta con:
+
+- ID
+- Nombre
+
+### Productos varios
+Todo lo que no sea un medicamento que administre la farmacia, como leches, pañales, etc. Cuenta con:
+
+- ID
+- Nombre
+
+### Usuario
+
+- ID
+- Nombre
+- Estado
+- Rol
+- Password
+
+### Rol
+
+- ID
+- Nombre
+
+## Base de Datos
