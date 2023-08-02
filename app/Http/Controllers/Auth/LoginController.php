@@ -29,15 +29,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function getLogin () {
-        return view('auth.login');
+    public function showLoginForm () {
+        return view('test.login');
       }
 
-    public function login(Request $request)
+    public function submitLogin(Request $request)
     {
         try {
             $check_password = null;
-            $usuario = User::where('email', $request->email)->first();
+            $usuario = User::where('nombre', $request->nombre)->first();
             if ($usuario) {
                 $check_password = Hash::check($request->password, $usuario->password);
             }
@@ -50,7 +50,7 @@ class LoginController extends Controller
 
         } catch (\Throwable $msg) {
             Log::debug('There was a problem trying to login: ' . $msg);
-            return view('auth/login');
+            return redirect()->back();
         }
     }
 }
