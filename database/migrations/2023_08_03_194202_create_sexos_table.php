@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('afiliados', function (Blueprint $table) {
+        Schema::create('sexos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->bigInteger('sexo_id');
-            $table->date('fecha_nacimiento');
-            $table->string('observaciones')->nullable();
-            $table->string('dni')->unique();
+            $table->string('denominacion');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('afiliados');
+        Schema::dropIfExists('sexos');
     }
 };
