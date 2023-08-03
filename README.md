@@ -58,8 +58,7 @@ La entidad cuenta con los siguientes campos:
 Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
 
 - ID
-- Documento_afiliado
-- Nombre_afiliado
+- Dni_afiliado
 - Fecha_validez
 - Fecha_recepcion
 - Patología
