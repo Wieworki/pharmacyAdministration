@@ -43,6 +43,7 @@ Afiliado que realiza el pedido de medicamentos. La entidad cuenta con los siguie
 - ID
 - Nombre
 - Apellido
+- Sexo
 - DNI
 - Fecha Nacimiento
 - Observaciones
