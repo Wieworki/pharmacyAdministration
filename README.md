@@ -55,9 +55,13 @@ La entidad cuenta con los siguientes campos:
 - Denominación
 
 ### Pedido farmacia
-Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. Cuenta con los siguientes atributos:
+Entidad compuesta, contiene el listado de todos los productos y las personas que los pidieron. Tendrá asociado un detalle. 
+Se guardan los datos de nombre y dni del afiliado con el fin de evitar un join al momento de recuperar los datos de los pedidos. Considerando también que esos valores pueden ser modificados desde el módulo de afiliación, sirve para registrar a quién se le emitió el pedido en ese momento.
+Cuenta con los siguientes atributos:
 
 - ID
+- id_afiliado
+- Nombre_afiliado
 - Dni_afiliado
 - Fecha_validez
 - Fecha_recepcion
@@ -106,23 +110,34 @@ Cuenta con:
 
 - Id
 - Nombre
-
-### Medicamento
-Tipo de item. Cuenta con:
+  
+### Items
+Todos los items que administre la farmacia, como leches, pañales, medicamentos etc. 
+Los topes mensuales y anuales refieren a la cantidad de pedidos que cubre la Obra Social del item en ese lapso de tiempo.
+Los distintos tipos de cobertura refieren a ciertos medicamentos que la obra social está obligada a proveer según la patología o condición del afiliado. La cobertura 70% es un caso especial, estando asociada a un listado de medicamentos elegidos desde la nación, a los cuales se les debe ofrecer un mínimo del 70% de descuento.
+Cuenta con:
 
 - ID
-- Marca: nombre comercial del medicamento
-- Presentación: blister, pastilla, jarabe, etc
-- id_principio_activo
-- id_laboratorio
+- Nombre
+- Es_medicamento
+- Tope_anual
+- Tope_mensual
 - Recupero (bool)
 - Cobertura_diabetes (bool)
 - Cobertura_discapacidad (bool)
 - Cobertura_anticonceptiva (bool)
 - Cobertura_70 (bool)
 - Cobertura_oncologica (bool)
-- Tope_anual
-- Tope_mensual
+
+### Medicamento
+Guarda referencia a distintos atributos de un medicamento, como es el laboratorio asociado, principio activo, etc. 
+Cuenta con:
+
+- ID
+- Marca: nombre comercial del medicamento
+- Presentación: blister, pastilla, jarabe, etc
+- id_principio_activo
+- id_laboratorio
 
 ### Laboratorio
 Cuenta con:
@@ -132,12 +147,6 @@ Cuenta con:
 
 ### Principio activo
 ingrediente principal de un medicamento, responsable del efecto deseado. Cuenta con:
-
-- ID
-- Nombre
-
-### Productos varios
-Todo lo que no sea un medicamento que administre la farmacia, como leches, pañales, etc. Cuenta con:
 
 - ID
 - Nombre
@@ -156,3 +165,7 @@ Todo lo que no sea un medicamento que administre la farmacia, como leches, paña
 - Nombre
 
 ## Base de Datos
+
+![imagen](https://github.com/Wieworki/pharmacyAdministration/assets/45775681/dc4b9134-9906-48fd-bea6-0d635eaf4fcc)
+
+
