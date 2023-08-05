@@ -27,6 +27,7 @@ class AfiliadoSeeder extends Seeder
                 [
                     'nombre' => $faker->name(),
                     'apellido' => $faker->lastName(),
+                    'sexo_id' => $faker->randomElement(['1','2','3']),
                     'fecha_nacimiento' => $faker->date(),
                     'dni' => $faker->numerify('########')
                 ]

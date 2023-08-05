@@ -45,12 +45,12 @@ class LoginController extends Controller
             if ($check_password) {
                 return redirect()->intended($this->redirectHome);
             } else {
-                return redirect()->back();
+                return redirect('/login');
             }
 
         } catch (\Throwable $msg) {
             Log::debug('There was a problem trying to login: ' . $msg);
-            return redirect()->back();
+            return redirect('/login');
         }
     }
 }
