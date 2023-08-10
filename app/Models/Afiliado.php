@@ -11,7 +11,7 @@ class Afiliado extends Model
 {
     use HasFactory;
     
-    private function sexo(): HasOne
+    protected function sexo(): HasOne
     {
         return $this->hasOne(Sexo::class);
     }
