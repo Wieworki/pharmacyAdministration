@@ -27,4 +27,8 @@ class Afiliado extends Model
     public function isOtro() {
         return $this->sexo->isOtro();
     }
+
+    static function loadById($id) {
+        return Afiliado::query()->find($id);
+    }
 }
