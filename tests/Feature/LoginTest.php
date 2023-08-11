@@ -19,7 +19,6 @@ class LoginTest extends TestCase
      */
     public function testSuccessfulLogin()
     {
-        $this->withoutExceptionHandling();
         $this->followingRedirects();
         $user = User::factory()->make(['nombre' => 'admin', 'password' => Hash::make('admin')]);
         $user->save();
@@ -34,7 +33,6 @@ class LoginTest extends TestCase
      */
     public function testFailedLogin()
     {
-        $this->withoutExceptionHandling();
         $this->followingRedirects();
         $user = User::factory()->make(['nombre' => 'admin', 'password' => Hash::make('admin')]);
         $user->save();
