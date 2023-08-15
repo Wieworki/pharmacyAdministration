@@ -17,7 +17,7 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nombre' => 'Item ' . fake()->name()
         ];
     }
 }

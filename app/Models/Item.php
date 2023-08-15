@@ -36,4 +36,12 @@ class Item extends Model
     public function hasCoberturaOncologica() {
         return $this->cobertura_oncologica == 1;
     }
+
+    /**
+     * @param string $nombre
+     */
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+        $this->save();
+    }
 }

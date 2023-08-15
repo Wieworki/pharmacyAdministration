@@ -17,7 +17,7 @@ class LaboratorioFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nombre' => 'Laboratorio ' . fake()->name()
         ];
     }
 }

@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Laboratorio extends Model
 {
     use HasFactory;
-
-    public function getNombre() {
-        return $this->nombre;
-    }
 }

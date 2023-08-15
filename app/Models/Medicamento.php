@@ -4,32 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Medicamento extends Model
 {
     use HasFactory;
 
-    protected function laboratorio(): HasOne
-    {
-        return $this->hasOne(Laboratorio::class);
+    static function loadById($id) {
+        return Medicamento::query()->find($id);
     }
 
-    protected function principioActivo(): HasOne
+    protected function laboratorio(): BelongsTo
     {
-        return $this->hasOne(PrincipioActivo::class);
+        return $this->belongsTo(Laboratorio::class);
+    }
+
+    protected function principioActivo(): BelongsTo
+    {
+        return $this->belongsTo(PrincipioActivo::class);
     }
 
     public function getLaboratorio() {
-        return $this->laboratorio()->getNombre();
+        return $this->laboratorio->nombre;
     }
 
     public function getPrincipioActivo() {
-        return $this->principioActivo()->getNombre();
+        return $this->principioActivo->nombre;
     }
 
-    public function item(): HasOne
+    public function item(): BelongsTo
     {
-        return $this->hasOne(Item::class);
+        return $this->belongsTo(Item::class);
     }
 }
