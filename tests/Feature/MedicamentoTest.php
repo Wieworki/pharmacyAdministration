@@ -112,7 +112,7 @@ class MedicamentoTest extends TestCase
         ]);
         
         $medicamento->refresh();
-        //$this->assertEquals($medicamento->getLaboratorio(), $laboratorioNuevo->nombre);
+        $this->assertEquals($medicamento->getLaboratorio(), $laboratorioNuevo->nombre);
         $this->assertEquals($medicamento->getPrincipioActivo(), $principioActivoNuevo->nombre);
     }
 
