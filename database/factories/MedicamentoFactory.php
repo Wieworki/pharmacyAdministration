@@ -17,7 +17,11 @@ class MedicamentoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'item_id' => 0,
+            'principio_activo_id' => 0,
+            'laboratorio_id' => 0,
+            'marca' => 'marca ' . fake()->name(),
+            'presentacion' => 'presentacion ' . fake()->name()
         ];
     }
 }

@@ -16,15 +16,15 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->smallInteger('es_medicamento');
-            $table->integer('tope_anual');
-            $table->integer('tope_mensual');
-            $table->smallInteger('recupero');
-            $table->smallInteger('cobertura_diabetes');
-            $table->smallInteger('cobertura_discapacidad');
-            $table->smallInteger('cobertura_anticonceptiva');
-            $table->smallInteger('cobertura_70');
-            $table->smallInteger('cobertura_oncologica');
+            $table->smallInteger('es_medicamento')->default('0');
+            $table->integer('tope_anual')->nullable();
+            $table->integer('tope_mensual')->nullable();
+            $table->smallInteger('recupero')->default('0');
+            $table->smallInteger('cobertura_diabetes')->default('0');
+            $table->smallInteger('cobertura_discapacidad')->default('0');
+            $table->smallInteger('cobertura_anticonceptiva')->default('0');
+            $table->smallInteger('cobertura_70')->default('0');
+            $table->smallInteger('cobertura_oncologica')->default('0');
             $table->timestamps();
         });
     }

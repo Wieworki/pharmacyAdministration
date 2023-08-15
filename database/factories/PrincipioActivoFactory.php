@@ -17,7 +17,7 @@ class PrincipioActivoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nombre' => 'PA ' . fake()->name()
         ];
     }
 }
