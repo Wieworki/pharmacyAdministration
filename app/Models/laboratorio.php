@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Laboratorio extends Model
 {
     use HasFactory;
+
+    static function loadById($id) {
+        return Laboratorio::query()->find($id);
+    }
 }
