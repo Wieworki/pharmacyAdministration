@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AfiliadoController;
 use App\Http\Controllers\LaboratorioController;
 use App\Http\Controllers\MedicamentoController;
+use App\Http\Controllers\PrincipioActivoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,4 +43,14 @@ Route::controller(LaboratorioController::class)->group(function () {
     Route::post('/laboratorio/store', 'store');
     Route::post('/laboratorio/edit', 'edit');
     Route::post('/laboratorio/update', 'update');
+});
+
+Route::controller(PrincipioActivoController::class)->group(function () {
+    Route::get('/principioactivo', 'index');
+    Route::get('/principioactivo/list', 'list');
+    Route::get('/principioactivo/new', 'new');
+    Route::post('/principioactivo/show', 'show');
+    Route::post('/principioactivo/store', 'store');
+    Route::post('/principioactivo/edit', 'edit');
+    Route::post('/principioactivo/update', 'update');
 });
