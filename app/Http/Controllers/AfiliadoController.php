@@ -7,17 +7,13 @@ use Illuminate\Http\Request;
 
 class AfiliadoController extends Controller
 {
-    public function index () {
-        return view('afiliado.index');
-    }
-
     public function list () {
         $afiliados = Afiliado::all();
         return response()->json(['afiliados' => $afiliados]);
     }
 
-    public function show (Request $request) {
+    public function get (Request $request) {
         $afiliado = Afiliado::loadById($request->id);
-        return view('afiliado.show', compact('afiliado'));
+        return response()->json(['afiliado' => $afiliado]);
     }
 }

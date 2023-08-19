@@ -11,39 +11,31 @@ class PrincipioActivoTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testIndexPrincipioActivo()
-    {
-        $response = $this->get('/principioactivo');
-        $response->assertStatus(200);
-    }
-
     public function testPrincipioActivoList()
     {
         $principioActivo = PrincipioActivo::factory()->make();
         $principioActivo->save();
-        $response = $this->get('/principioactivo/list');
+        $response = $this->get('api/principioactivo/list');
         $response->assertStatus(200)
         ->assertJson(['principioActivos' => [ 0 =>
             ['nombre' => $principioActivo->nombre]
         ]]); 
     }
 
-    public function testPrincipioActivoShow()
+    public function testPrincipioActivoGet()
     {
         $principioActivo = PrincipioActivo::factory()->make();
-        $response = $this->post('/principioactivo/show', ['id' => $principioActivo->id]);
-        $response->assertStatus(200); 
-    }
-
-    public function testPrincipioActivoNew()
-    {
-        $response = $this->get('/principioactivo/new');
-        $response->assertStatus(200); 
+        $principioActivo->save();
+        $response = $this->post('api/principioactivo/get', ['id' => $principioActivo->id]);
+        $response->assertStatus(200)
+        ->assertJson(['principioActivo' =>
+            ['nombre' => $principioActivo->nombre]
+        ]); 
     }
 
     public function testPrincipioActivoStore()
     {
-        $response = $this->post('/principioactivo/store', [
+        $response = $this->post('api/principioactivo/store', [
             'nombre' => 'test'
         ]);
         $response->assertStatus(200)
@@ -58,19 +50,11 @@ class PrincipioActivoTest extends TestCase
         $this->assertNotNull($principioActivo);
     }
 
-    public function testPrincipioActivoEdit()
-    {
-        $principioActivo = PrincipioActivo::factory()->make();
-        $principioActivo->save();
-        $response = $this->post('/principioactivo/edit', ['id' => $principioActivo->id]);
-        $response->assertStatus(200); 
-    }
-
     public function testPrincipioActivoUpdate()
     {
         $principioActivo = PrincipioActivo::factory()->make();
         $principioActivo->save();
-        $response = $this->post('/principioactivo/update', [
+        $response = $this->post('api/principioactivo/update', [
             'id' => $principioActivo->id,
             'nombre' => 'test'
         ]);
