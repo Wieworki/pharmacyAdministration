@@ -8,22 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class LaboratorioController extends Controller
 {
-    public function index () {
-        return view('laboratorio.index');
-    }
-
     public function list () {
         $laboratorios = Laboratorio::all();
         return response()->json(['laboratorios' => $laboratorios]);
     }
 
-    public function show (Request $request) {
+    public function get (Request $request) {
         $laboratorio = Laboratorio::loadById($request->id);
-        return view('laboratorio.show', compact('laboratorio'));
-    }
-
-    public function new () {
-        return view('laboratorio.new');
+        return response()->json(['laboratorio' => $laboratorio]);
     }
 
     public function store (Request $request) {
@@ -39,11 +31,6 @@ class LaboratorioController extends Controller
             $error = $th->getMessage();
             return  response()->json(['resultados' => "error", 'error' => $error]);
         }
-    }
-
-    public function edit (Request $request) {
-        $laboratorio = Laboratorio::loadById($request->id);
-        return view('laboratorio.edit', compact('laboratorio'));
     }
 
     public function update (Request $request) {

@@ -14,30 +14,25 @@ class MedicamentoTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testIndexMedicamento()
-    {
-        $response = $this->get('/medicamento');
-        $response->assertStatus(200);
-    }
-
-    public function testMedicamentoShow()
+    public function testMedicamentoGet()
     {
         $laboratorio = Laboratorio::factory()->make();
+        $laboratorio->save();
         $principioActivo = PrincipioActivo::factory()->make();
+        $principioActivo->save();
         $item = Item::factory()->make();
+        $item->save();
         $medicamento = Medicamento::factory()->make([
             'laboratorio_id' => $laboratorio->id,
             'principio_activo_id' => $principioActivo->id,
             'item_id' => $item->id
         ]);
-        $response = $this->post('/medicamento/show', ['id' => $medicamento->id]);
-        $response->assertStatus(200); 
-    }
-
-    public function testNewMedicamento()
-    {
-        $response = $this->get('/medicamento/new');
-        $response->assertStatus(200);
+        $medicamento->save();
+        $response = $this->post('api/medicamento/get', ['id' => $medicamento->id]);
+        $response->assertStatus(200)
+        ->assertJson(['medicamento' =>
+            ['marca' => $medicamento->marca, 'presentacion' => $medicamento->presentacion]
+        ]);  
     }
 
     public function testMedicamentoStore()
@@ -47,7 +42,7 @@ class MedicamentoTest extends TestCase
         $principioActivo = PrincipioActivo::factory()->make();
         $principioActivo->save();
 
-        $response = $this->post('/medicamento/store', [
+        $response = $this->post('api/medicamento/store', [
             'principio_activo_id' => $principioActivo->id,
             'laboratorio_id' => $laboratorio->id,
             'marca' => 'marca',
@@ -65,16 +60,6 @@ class MedicamentoTest extends TestCase
         ->get()->first();
 
         $this->assertNotNull($medicamento);
-    }
-
-    public function testMedicamentoEdit()
-    {
-        $laboratorio = Laboratorio::factory()->make();
-        $principioActivo = PrincipioActivo::factory()->make();
-        $item = Item::factory()->make();
-        $medicamento = Medicamento::factory()->make($laboratorio->id, $principioActivo->id, $item->id);
-        $response = $this->post('/medicamento/edit', ['id' => $medicamento->id]);
-        $response->assertStatus(200);
     }
 
     public function testMedicamentoUpdate()
@@ -97,7 +82,7 @@ class MedicamentoTest extends TestCase
         $principioActivoNuevo = PrincipioActivo::factory()->make();
         $principioActivoNuevo->save();
 
-        $response = $this->post('/medicamento/update', [
+        $response = $this->post('api/medicamento/update', [
             'id_medicamento' => $medicamento->id,
             'principio_activo_id' => $principioActivoNuevo->id,
             'laboratorio_id' => $laboratorioNuevo->id,
@@ -124,7 +109,7 @@ class MedicamentoTest extends TestCase
         $medicamento = Medicamento::factory()->make($laboratorioOriginal->id, $principioActivoOriginal->id, $item->id);
         $medicamento->save();
 
-        $response = $this->get('/medicamento/list');
+        $response = $this->get('api/medicamento/list');
         $response->assertStatus(200)
         ->assertJson(['medicamentos' => [ 0 =>
             ['marca' => $medicamento->marca, 'presentacion' => $medicamento->presentacion]

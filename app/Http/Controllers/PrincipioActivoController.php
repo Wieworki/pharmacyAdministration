@@ -8,22 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class PrincipioActivoController extends Controller
 {
-    public function index () {
-        return view('principioactivo.index');
-    }
-
     public function list () {
         $principioActivos = PrincipioActivo::all();
         return response()->json(['principioActivos' => $principioActivos]);
     }
 
-    public function show (Request $request) {
+    public function get (Request $request) {
         $principioactivo = PrincipioActivo::loadById($request->id);
-        return view('principioactivo.show', compact('principioactivo'));
-    }
-
-    public function new () {
-        return view('principioactivo.new');
+        return response()->json(['principioActivo' => $principioactivo]);
     }
 
     public function store (Request $request) {
@@ -39,11 +31,6 @@ class PrincipioActivoController extends Controller
             $error = $th->getMessage();
             return  response()->json(['resultados' => "error", 'error' => $error]);
         }
-    }
-
-    public function edit (Request $request) {
-        $principioactivo = PrincipioActivo::loadById($request->id);
-        return view('principioactivo.edit', compact('principioactivo'));
     }
 
     public function update (Request $request) {

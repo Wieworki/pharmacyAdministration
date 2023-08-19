@@ -18,13 +18,9 @@ class MedicamentoController extends Controller
         return response()->json(['medicamentos' => $medicamentos]);
     }
 
-    public function show (Request $request) {
+    public function get (Request $request) {
         $medicamento = Medicamento::loadById($request->id);
-        return view('medicamento.show', compact('medicamento'));
-    }
-
-    public function new () {
-        return view('medicamento.new');
+        return response()->json(['medicamento' => $medicamento]);
     }
 
     public function store (Request $request) {
@@ -48,11 +44,6 @@ class MedicamentoController extends Controller
             $error = $th->getMessage();
             return  response()->json(['resultados' => "error", 'error' => $error]);
         }
-    }
-
-    public function edit (Request $request) {
-        $medicamento = Medicamento::loadById($request->id);
-        return view('medicamento.edit', compact('medicamento'));
     }
 
     public function update (Request $request) {

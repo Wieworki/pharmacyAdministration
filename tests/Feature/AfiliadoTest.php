@@ -10,27 +10,25 @@ class AfiliadoTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testIndexAfiliados()
-    {
-        $response = $this->get('/afiliado');
-        $response->assertStatus(200);
-    }
-
     public function testAfiliadosList()
     {
         $afiliado = Afiliado::factory()->make();
         $afiliado->save();
-        $response = $this->get('/afiliado/list');
+        $response = $this->get('api/afiliado/list');
         $response->assertStatus(200)
         ->assertJson(['afiliados' => [ 0 =>
             ['nombre' => $afiliado->nombre, 'dni' => $afiliado->dni]
         ]]); 
     }
 
-    public function testAfiliadoShow()
+    public function testAfiliadoGet()
     {
         $afiliado = Afiliado::factory()->make();
-        $response = $this->post('/afiliado/show', ['id' => $afiliado->id]);
-        $response->assertStatus(200); 
+        $afiliado->save();
+        $response = $this->post('api/afiliado/get', ['id' => $afiliado->id]);
+        $response->assertStatus(200)
+        ->assertJson(['afiliado' =>
+            ['nombre' => $afiliado->nombre, 'dni' => $afiliado->dni]
+        ]); 
     }
 }
