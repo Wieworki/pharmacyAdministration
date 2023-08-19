@@ -1,25 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'farmacia-frontend';
-  usuarios = [];
-  constructor(private authService: AuthService) {
-
-  }
-
-  ngOnInit(): void {
-    this.authService.getUser().subscribe( 
-      {
-        next: (data: any) => {
-          this.usuarios = data;
-        }
-      }
-    );
-  }
 }
