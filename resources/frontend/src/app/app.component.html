@@ -481,4 +481,8 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<div class="card" *ngFor="let usuario of usuarios">
+  {{ usuario['email'] }}
+</div>
+
 <router-outlet></router-outlet>
